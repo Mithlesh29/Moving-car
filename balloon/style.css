@@ -1,0 +1,238 @@
+:root {
+    --container-width: 400px;
+    --crate-width: 184px;
+    --start-back: 107px;
+    --start-top: 151px;
+
+    --open-delay: 1s;
+    --open-duration: 1s;
+    --confetti-duration: .6s;
+    --balloon-duration: 3s;
+
+    --confetti-green-1-y: 135px;
+    --confetti-green-1-x: calc(50% - 21px);
+    --confetti-green-2-y: 135px;
+    --confetti-green-2-x: calc(50% + 7px);
+
+    --confetti-yellow-1-y: 100px;
+    --confetti-yellow-1-x: calc(50% - 14px);
+    --confetti-yellow-2-y: 100px;
+    --confetti-yellow-2-x: calc(50% - 14px);
+
+    --confetti-purple-1-y: 80px;
+    --confetti-purple-1-x: calc(50%);
+    --confetti-purple-2-y: 80px;
+    --confetti-purple-2-x: calc(50% - 20px);
+
+    --balloon-green-x: 120px;
+    --balloon-green-y: -57px;
+
+    --balloon-red-x: 170px;
+    --balloon-red-y: -57px;
+
+    --balloon-yellow-x: 220px;
+    --balloon-yellow-y: -57px;
+}
+
+.container {
+    width: var(--container-width);
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+}
+
+.strip {
+    width: var(--container-width);
+    height: 5px;
+    bottom: 0;
+    position: absolute;
+    background: white;
+    z-index: 5;
+
+}
+
+.bg {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+.crate {
+    position: absolute;
+    width: var(--crate-width);
+    bottom: 3px;
+    left: calc(50% - var(--crate-width) / 2);
+    z-index: 2;
+}
+
+.crate-top {
+    position: absolute;
+    width: var(--crate-width);
+    bottom: var(--start-top);
+    left: calc(50% - var(--crate-width) / 2);
+    z-index: 1;
+    animation-delay: var(--open-delay);
+    animation-name: topup;
+    animation-duration: var(--open-duration);
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+}
+
+@keyframes topup {
+    from {
+        bottom: var(--start-top);
+    }
+
+    to {
+        bottom: calc(var(--start-top) + (var(--start-top) - var(--start-back)));
+    }
+}
+
+.crate-back {
+    position: absolute;
+    width: calc(var(--crate-width) - 4px);
+    bottom: var(--start-back);
+    left: calc(50% - (var(--crate-width) - 4px) / 2);
+    z-index: 0;
+    animation-delay: var(--open-delay);
+    animation-name: backup;
+    animation-duration: var(--open-duration);
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+}
+
+@keyframes backup {
+    from {
+        bottom: var(--start-back);
+    }
+
+    to {
+        bottom: var(--start-top);
+    }
+}
+
+.confetti {
+    will-change: left, bottom, opacity;
+    position: absolute;
+    z-index: 1;
+    animation-timing-function: ease-out;
+    animation-delay: calc(var(--open-delay) + var(--open-duration) - .8s);
+    animation-duration: var(--confetti-duration);
+}
+
+.confetti-green {
+    width: 14px;
+}
+
+.confetti-yellow {
+    width: 28px;
+}
+
+.confetti-purple {
+    width: 20px;
+}
+
+.confetti-green-1 {
+    bottom: var(--confetti-green-1-y);
+    left: var(--confetti-green-1-x);
+    animation-name: throw-right;
+}
+
+.confetti-green-2 {
+    bottom: var(--confetti-green-2-y);
+    left: var(--confetti-green-2-x);
+    animation-name: throw-left;
+}
+
+.confetti-yellow-1 {
+    bottom: var(--confetti-yellow-1-y);
+    left: var(--confetti-yellow-1-x);
+    animation-name: throw-right;
+}
+
+.confetti-yellow-2 {
+    bottom: var(--confetti-yellow-2-y);
+    left: var(--confetti-yellow-2-x);
+    animation-name: throw-left;
+}
+
+.confetti-purple-1 {
+    bottom: var(--confetti-purple-1-y);
+    left: var(--confetti-purple-1-x);
+    animation-name: throw-right;
+}
+
+.confetti-purple-2 {
+    bottom: var(--confetti-purple-2-y);
+    left: var(--confetti-purple-2-x);
+    animation-name: throw-left;
+}
+
+
+@keyframes throw-right {
+
+    from,
+    50% {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+        transform: translate(150px, -150px) rotate(90deg);
+    }
+}
+
+@keyframes throw-left {
+
+    from,
+    50% {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+        transform: translate(-150px, -150px) rotate(-90deg);
+    }
+}
+
+.balloon {
+    will-change: left, bottom, opacity;
+    width: 65px;
+    position: absolute;
+    z-index: 1;
+    animation-name: balloon;
+    animation-duration: var(--balloon-duration);
+    animation-timing-function: ease-in;
+}
+
+@keyframes balloon {
+
+    from,
+    50% {
+        opacity: 1;
+    }
+
+    to {
+        bottom: 330px;
+        opacity: .1;
+    }
+}
+
+.balloon-red {
+    bottom: var(--balloon-red-y);
+    left: var(--balloon-red-x);
+    animation-delay: calc(var(--open-delay) + var(--open-duration) + var(--confetti-duration) / 2 + .7s);
+    animation-duration: calc(var(--balloon-duration) + 2s);
+}
+
+.balloon-yellow {
+    bottom: var(--balloon-yellow-y);
+    left: var(--balloon-yellow-x);
+    animation-delay: calc(var(--open-delay) + var(--open-duration) + var(--confetti-duration) / 2 - .5s);
+}
+
+.balloon-green {
+    bottom: var(--balloon-green-y);
+    left: var(--balloon-green-x);
+    animation-delay: calc(var(--open-delay) + var(--open-duration) + var(--confetti-duration) / 2 + 0s);
+}
